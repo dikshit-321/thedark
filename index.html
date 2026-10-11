@@ -2078,7 +2078,7 @@ document.getElementById('deviceList').addEventListener('pointerdown', function(e
   var id = cardEl.getAttribute('data-id');
   var url = cardEl.getAttribute('data-url');
   var dev = findDevice(id, url);
-  if (dev) cacheGet(dev); // LRU touch only — no side effects
+  if (dev) cacheGet(dev);
 }, { passive: true });
 
 /* ═══════ DETAIL DRAWER — SYNCHRONOUS FIRST PAINT ═══════ */
@@ -2195,10 +2195,7 @@ function openDetail(dev){
   startSmsPolling(dev);
   startDeviceStatusPolling(dev);
 
-  if (S.detailTab === 'sms'){
-    var content = document.getElementById('dContent');
-    if (content) content.scrollTop = content.scrollHeight;
-  }
+  // NOTE: no auto-scroll — SMS tab opens at TOP (newest message visible first)
 }
 
 function copyText(text){
@@ -2401,7 +2398,6 @@ function patchSmsList(){
     }
     var emptyState = container.querySelector('.skel-row');
     if (emptyState){
-      // clear skeleton and replace
       container.innerHTML = '';
       container.appendChild(frag0);
     } else {
@@ -2588,10 +2584,8 @@ function renderDetailTab(){
         });
       };
     }
-    // Auto scroll to bottom
-    if (S.detailSms.length > 0){
-      requestAnimationFrame(function(){ $c.scrollTop = $c.scrollHeight; });
-    }
+    // Reset to top so newest message is visible immediately (no downward jump)
+    $c.scrollTop = 0;
   }
 
   $c.querySelectorAll('.irow').forEach(function(el){
@@ -2755,4 +2749,3 @@ initLogin();
 </script>
 </body>
 </html>
-<!--
